@@ -62,6 +62,7 @@ textarea {
   --color-input-text: var(--neutral-200);
   --color-toggle: var(--neutral-700);
   --color-error: var(--orange-500);
+  --color-focus: var(--purple-500);
   --noise: url("assets/images/bg-noise-dark.webp");
 }
 
@@ -77,6 +78,7 @@ textarea {
   --color-input-text: var(--neutral-700);
   --color-toggle: var(--neutral-100);
   --color-error: var(--orange-800);
+  --color-focus: var(--neutral-900); /* purple-500 is only 2.8:1 on white */
   --noise: url("assets/images/bg-noise-light.webp");
 }
 
@@ -106,7 +108,7 @@ h2 {
 }
 
 :focus-visible {
-  outline: 2px solid var(--purple-500);
+  outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }
 
@@ -242,7 +244,7 @@ textarea {
 
   &:focus-visible {
     outline: 0;
-    border-color: var(--purple-500);
+    border-color: var(--color-focus);
     box-shadow: 0 0 10px var(--purple-400);
   }
 
