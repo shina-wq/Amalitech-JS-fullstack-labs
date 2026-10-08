@@ -167,7 +167,34 @@
             </div>
           </dl>
         </section>
+
+        <!-- Letter density: rows are rendered by script.js from #density-row-template -->
+        <section class="density" aria-labelledby="density-heading">
+          <h2 class="density__title" id="density-heading">Letter Density</h2>
+
+          <p class="density__empty" id="density-empty">No characters found. Start typing to see letter density.</p>
+          <ul class="density__list" id="density-list" hidden></ul>
+
+          <button class="density__toggle" type="button" aria-expanded="false" aria-controls="density-list" hidden>
+            <span class="density__toggle-label">See more</span>
+            <svg class="density__toggle-icon" viewBox="0 0 16 16" fill="none" width="16" height="16" aria-hidden="true">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m4 6 4 4 4-4" />
+            </svg>
+          </button>
+        </section>
+
+        <!-- Screen-reader summary, announced after typing pauses (filled by script.js) -->
+        <p class="visually-hidden" id="live-status" aria-live="polite" aria-atomic="true"></p>
       </main>
     </div>
+
+    <!-- One letter-density row; the bar is decorative because the text already carries the value -->
+    <template id="density-row-template">
+      <li class="density-row">
+        <span class="density-row__letter"></span>
+        <span class="density-row__bar" aria-hidden="true"><span class="density-row__fill"></span></span>
+        <span class="density-row__value"></span>
+      </li>
+    </template>
   </body>
 </html>
