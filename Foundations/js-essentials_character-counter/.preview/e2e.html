@@ -1,0 +1,27 @@
+<!doctype html>
+<meta charset="utf-8" />
+<iframe src="../index.html" width="1000" height="900"></iframe>
+<script src="checks.js"></script>
+<script>
+  // Runs CHECKS (from checks.js) against the real page and writes results to body[data-m]
+  const f = document.querySelector("iframe");
+  f.onload = async () => {
+    const d = f.contentDocument;
+    const w = f.contentWindow;
+    const errors = [];
+    w.addEventListener("error", (e) => errors.push(e.message));
+    const $ = (s) => d.querySelector(s);
+    const type = (text) => { $("#text-input").value = text; $("#text-input").dispatchEvent(new w.InputEvent("input", { bubbles: true })); };
+    const results = [];
+    for (const [name, run] of CHECKS) {
+      try {
+        const [got, want] = await run({ d, w, $, type });
+        const ok = JSON.stringify(got) === JSON.stringify(want);
+        results.push(`${ok ? "  ok  " : "  FAIL"} ${name}${ok ? "" : `  got ${JSON.stringify(got)} want ${JSON.stringify(want)}`}`);
+      } catch (e) {
+        results.push(`  ERROR ${name}: ${e.message}`);
+      }
+    }
+    document.body.dataset.m = JSON.stringify([...results, `page errors: ${errors.length ? errors.join(" | ") : 0}`]);
+  };
+</script>

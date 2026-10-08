@@ -1,0 +1,27 @@
+<!doctype html>
+<meta charset="utf-8" />
+<body style="margin:0">
+<script>
+  // Load index.html at several widths in the busiest state and report any horizontal overflow
+  const widths = [320, 414, 600, 768, 900, 1024, 1280, 1440, 1920];
+  const out = {};
+  let pending = widths.length;
+  for (const w of widths) {
+    const f = Object.assign(document.createElement("iframe"), { src: "../index.html", width: w, height: 1400 });
+    f.onload = async () => {
+      const d = f.contentDocument;
+      d.querySelector("textarea").setAttribute("aria-invalid", "true");
+      d.querySelector("#limit-message").hidden = false;
+      d.querySelector("#limit-text").textContent = "Limit reached! Your text exceeds 300 characters.";
+      d.querySelector("#limit-toggle").checked = true;
+      d.querySelector("#limit-input").hidden = false;
+      d.querySelector("#reading-time").textContent = "<1 minute";
+      await d.fonts.ready;
+      const de = d.documentElement;
+      const wide = [...d.querySelectorAll("body *")].filter((el) => el.getBoundingClientRect().right > de.clientWidth + 0.5).map((el) => el.tagName.toLowerCase() + (el.className && typeof el.className === "string" ? "." + el.className.split(" ")[0] : ""));
+      out[w] = de.scrollWidth > de.clientWidth ? `OVERFLOW by ${de.scrollWidth - de.clientWidth}px: ${[...new Set(wide)].join(", ")}` : "ok";
+      if (--pending === 0) document.body.dataset.m = JSON.stringify(out);
+    };
+    document.body.append(f);
+  }
+</script>

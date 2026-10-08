@@ -1,0 +1,18 @@
+<!doctype html><meta charset="utf-8"><body style="margin:0;display:flex;gap:20px;align-items:flex-start;background:#777">
+<iframe src="../index.html" width="375" height="1900" style="border:0"></iframe>
+<iframe src="../index.html" width="1440" height="1500" style="border:0"></iframe>
+<script src="checks.js"></script>
+<script>
+  // Drive the real script like a user: type, set a limit, expand density
+  let n = 0;
+  for (const f of document.querySelectorAll("iframe")) f.onload = () => {
+    const d = f.contentDocument, w = f.contentWindow, $ = (s) => d.querySelector(s);
+    $("#text-input").value = SAMPLE;
+    $("#text-input").dispatchEvent(new w.InputEvent("input", { bubbles: true }));
+    $("#exclude-spaces").click();
+    $("#limit-toggle").click();
+    $("#limit-input").value = "278";
+    $("#limit-input").dispatchEvent(new w.InputEvent("input", { bubbles: true }));
+    $("#density-toggle").click();
+  };
+</script>

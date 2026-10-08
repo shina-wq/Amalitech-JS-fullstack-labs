@@ -1,0 +1,18 @@
+<!doctype html><meta charset="utf-8">
+<iframe src="../index.html" width="1000" height="900"></iframe>
+<script src="checks.js"></script>
+<script>
+  // Real-clock timing (run without --virtual-time-budget)
+  const f = document.querySelector("iframe");
+  f.onload = () => {
+    const w = f.contentWindow, ta = f.contentDocument.querySelector("#text-input");
+    const type = (t) => { ta.value = t; ta.dispatchEvent(new w.InputEvent("input", { bubbles: true })); };
+    const time = (fn) => { const t = performance.now(); fn(); return performance.now() - t; };
+    const big = SAMPLE.repeat(216);
+    const paste = [1, 2, 3].map(() => (type(""), time(() => type(big))));
+    let text = "";
+    const keys = time(() => { for (let i = 0; i < 200; i++) type((text += "a")); }) / 200;
+    const sample = time(() => { for (let i = 0; i < 200; i++) type(SAMPLE + i); }) / 200;
+    document.body.dataset.m = `60k paste: ${paste.map((m) => m.toFixed(1)).join(" / ")} ms | keystroke (short text): ${keys.toFixed(3)} ms | keystroke (sample paragraph): ${sample.toFixed(3)} ms`;
+  };
+</script>

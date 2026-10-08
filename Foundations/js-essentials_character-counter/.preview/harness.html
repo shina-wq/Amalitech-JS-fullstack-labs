@@ -1,0 +1,76 @@
+<!doctype html>
+<meta charset="utf-8" />
+<style>
+  body { margin: 0; display: flex; align-items: flex-start; gap: 20px; background: #777; }
+  iframe { border: 0; flex: none; }
+</style>
+<iframe src="../index.html" width="375" height="1300"></iframe>
+<iframe src="../index.html" width="768" height="1300"></iframe>
+<iframe src="../index.html" width="1440" height="1300"></iframe>
+<script>
+  // Measure listed selectors inside each frame (needs --allow-file-access-from-files)
+  const sel = new URLSearchParams(location.search).get("m")?.split(",") ?? [];
+  // Optional ?s=<state> to fake UI states before script.js exists
+  const state = new URLSearchParams(location.search).get("s");
+  const TEXT = "Design is the silent ambassador of your brand. Simplicity is key to effective communication, creating clarity in every interaction. A great design transforms complex ideas into elegant solutions, making them easy to understand. It blends aesthetics and functionality seamlessly.";
+  function fillDensity(d, all) {
+    const letters = TEXT.toUpperCase().replace(/[^A-Z]/g, "");
+    const counts = {};
+    for (const l of letters) counts[l] = (counts[l] || 0) + 1;
+    const rows = Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    const list = d.querySelector("#density-list");
+    for (const [l, n] of all ? rows : rows.slice(0, 5)) {
+      const li = d.querySelector("#density-row").content.cloneNode(true);
+      const pct = (n / letters.length) * 100;
+      li.querySelector(".density-letter").textContent = l;
+      li.querySelector(".density-bar span").style.setProperty("--percent", pct + "%");
+      li.querySelector(".density-value").textContent = n + " (" + pct.toFixed(2) + "%)";
+      list.append(li);
+    }
+    d.querySelector("#density-empty").hidden = true;
+    const t = d.querySelector("#density-toggle");
+    t.hidden = false;
+    t.setAttribute("aria-expanded", all);
+    t.querySelector("span").textContent = all ? "See less" : "See more";
+  }
+  const states = {
+    density: (d) => fillDensity(d, false),
+    filled(d) {
+      fillDensity(d, false);
+      d.querySelector("textarea").value = TEXT;
+      d.querySelector("#char-count").textContent = "278";
+      d.querySelector("#word-count").textContent = "39";
+      d.querySelector("#sentence-count").textContent = "04";
+      d.querySelector("#reading-time").textContent = "<1 minute";
+    },
+    expanded: (d) => fillDensity(d, true),
+    limit(d) {
+      d.querySelector("#exclude-spaces").checked = true;
+      d.querySelector("#limit-toggle").checked = true;
+      d.querySelector("#limit-input").hidden = false;
+    },
+    error(d) {
+      d.querySelector("textarea").value = TEXT;
+      d.querySelector("textarea").setAttribute("aria-invalid", "true");
+      d.querySelector("#limit-message").hidden = false;
+      d.querySelector("#limit-text").textContent = "Limit reached! Your text exceeds 300 characters.";
+    },
+  };
+  addEventListener("load", async () => {
+    const out = {};
+    if (state) for (const f of document.querySelectorAll("iframe")) states[state](f.contentDocument);
+    for (const f of document.querySelectorAll("iframe")) {
+      const d = f.contentDocument;
+      await d.fonts.ready;
+      out[f.width] = Object.fromEntries(
+        sel.map((s) => {
+          const el = d.querySelector(s);
+          if (!el) return [s, null];
+          const r = el.getBoundingClientRect();
+          return [s, `x${Math.round(r.x)} y${Math.round(r.y)} ${Math.round(r.width)}x${Math.round(r.height)}`];
+        }),
+      );
+    }
+    document.body.dataset.m = JSON.stringify(out);
+  });
+</script>
