@@ -255,11 +255,17 @@ textarea {
 
 .limit-message {
   display: flex;
-  align-items: center;
+  align-items: start;
   gap: 0.5rem;
   font: 400 0.875rem / 1.3 var(--font-input);
   letter-spacing: -0.3px;
   color: var(--color-error);
+
+  /* Keep the icon level with the first line when the message wraps */
+  svg {
+    flex: none;
+    margin-block-start: 0.125rem;
+  }
 }
 
 /* Options: stacked on mobile (limit input stays beside its label), one row from tablet up */
