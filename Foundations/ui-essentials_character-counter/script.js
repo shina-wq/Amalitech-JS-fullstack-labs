@@ -35,6 +35,9 @@ function letterDensity(text) {
 // ==========================================================================
 
 const byId = (id) => document.getElementById(id);
+const THEME_KEY = "character-counter:theme"; // also read by the inline script in <head>
+const root = document.documentElement;
+const themeToggle = document.querySelector(".theme-toggle");
 
 const textarea = byId("text-input");
 const excludeSpaces = byId("exclude-spaces");
@@ -119,4 +122,18 @@ densityToggle.addEventListener("click", () => {
   render();
 });
 
+themeToggle.addEventListener("click", () => {
+  root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+  try {
+    localStorage.setItem(THEME_KEY, root.dataset.theme);
+  } catch {} // Storage can be blocked; the theme still switches for this visit
+  updateThemeLabel();
+});
+
+// The label describes the action, e.g. "Switch to light theme"
+function updateThemeLabel() {
+  themeToggle.setAttribute("aria-label", `Switch to ${root.dataset.theme === "dark" ? "light" : "dark"} theme`);
+}
+
+updateThemeLabel();
 render();
