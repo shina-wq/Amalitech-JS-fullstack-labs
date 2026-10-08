@@ -46,5 +46,44 @@
     <script src="script.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <div class="page">
+      <!-- Header: logo + theme toggle -->
+      <header class="site-header">
+        <!-- One logo per theme; CSS hides the inactive one (display: none also hides it from screen readers) -->
+        <img
+          class="site-header__logo site-header__logo--dark-theme"
+          src="assets/images/logo-dark-theme.svg"
+          alt="Character Counter"
+          width="246"
+          height="40"
+        />
+        <img
+          class="site-header__logo site-header__logo--light-theme"
+          src="assets/images/logo-light-theme.svg"
+          alt="Character Counter"
+          width="246"
+          height="40"
+        />
+
+        <!-- Label is updated by script.js to describe the action ("Switch to light/dark theme") -->
+        <button class="theme-toggle" type="button" aria-label="Toggle colour theme">
+          <!-- Icons are inline so they inherit the theme colour via currentColor -->
+          <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 20 20" width="22" height="22" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M10.75 1.67a.75.75 0 1 0-1.5 0zm-1.5 1.66a.75.75 0 1 0 1.5 0zm1.5 13.34a.75.75 0 1 0-1.5 0zm-1.5 1.66a.75.75 0 1 0 1.5 0zm-5.92-7.58a.75.75 0 1 0 0-1.5zm-1.66-1.5a.75.75 0 1 0 0 1.5zm3.06-3.46A.75.75 0 1 0 5.8 4.73zm-.12-2.24a.75.75 0 1 0-1.06 1.06zm9.6 1.18a.75.75 0 1 0 1.06 1.06zm2.24-.12a.75.75 0 1 0-1.06-1.06zM5.79 15.27a.75.75 0 1 0-1.06-1.06zm-2.24.12a.75.75 0 1 0 1.06 1.06zm11.72-1.18a.75.75 0 1 0-1.06 1.06zm.12 2.24a.75.75 0 0 0 1.06-1.06zm2.94-5.7a.75.75 0 1 0 0-1.5zm-1.66-1.5a.75.75 0 1 0 0 1.5zM9.25 1.67v1.66h1.5V1.67zm0 15v1.66h1.5v-1.66zM3.33 9.25H1.67v1.5h1.66zM5.8 4.73 4.61 3.55 3.55 4.61 4.73 5.8zm9.48 1.06 1.18-1.18-1.06-1.06-1.18 1.18zM4.73 14.21 3.55 15.4l1.06 1.06 1.18-1.18zm9.48 1.06 1.18 1.18 1.06-1.06-1.18-1.18zm4.12-6.02h-1.66v1.5h1.66zm-4.91.75A3.4 3.4 0 0 1 10 13.42v1.5c2.72 0 4.92-2.2 4.92-4.92zM10 13.42A3.4 3.4 0 0 1 6.58 10h-1.5c0 2.72 2.2 4.92 4.92 4.92zM6.58 10A3.4 3.4 0 0 1 10 6.58v-1.5A4.9 4.9 0 0 0 5.08 10zM10 6.58A3.4 3.4 0 0 1 13.42 10h1.5c0-2.71-2.2-4.92-4.92-4.92z"
+            />
+          </svg>
+          <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 20 20" width="22" height="22" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="m18.3 10.8.74.07a.75.75 0 0 0-1.4-.44zM9.2 1.7l.38.66a.75.75 0 0 0-.45-1.4zm8.44 8.73a5.9 5.9 0 0 1-5.14 2.99v1.5a7.4 7.4 0 0 0 6.45-3.75zm-5.14 2.99A5.9 5.9 0 0 1 6.58 7.5h-1.5c0 4.1 3.32 7.42 7.42 7.42zM6.58 7.5a5.9 5.9 0 0 1 3-5.14l-.75-1.3A7.4 7.4 0 0 0 5.08 7.5zM2.42 10a7.6 7.6 0 0 1 6.85-7.55L9.13.95A9.1 9.1 0 0 0 .92 10zM10 17.58A7.6 7.6 0 0 1 2.42 10H.92A9.1 9.1 0 0 0 10 19.08zm7.55-6.85A7.6 7.6 0 0 1 10 17.58v1.5c4.72 0 8.6-3.6 9.04-8.21z"
+            />
+          </svg>
+        </button>
+      </header>
+    </div>
   </body>
 </html>
