@@ -1,0 +1,24 @@
+/* ==========================================================================
+   Reset
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+img,
+svg {
+  display: block;
+  max-inline-size: 100%;
+}
+
+/* Form controls don't inherit typography by default */
+input,
+button,
+textarea {
+  font: inherit;
+  color: inherit;
+}
