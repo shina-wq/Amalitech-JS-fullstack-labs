@@ -209,3 +209,55 @@ main {
 [data-theme="light"] :is(.logo--light, .icon-moon) {
   display: block;
 }
+
+/* ==========================================================================
+   Analyzer
+   ========================================================================== */
+
+.analyzer {
+  display: grid;
+  gap: 0.75rem;
+}
+
+textarea {
+  block-size: 12.5rem;
+  padding: 1.25rem;
+  border: 2px solid var(--color-border);
+  border-radius: 0.75rem;
+  font: 400 1.125rem / 1.4 var(--font-input);
+  letter-spacing: 0;
+  color: var(--color-input-text);
+  background: var(--color-surface);
+  resize: vertical;
+
+  &::placeholder {
+    color: inherit;
+    opacity: 1;
+  }
+
+  &:hover {
+    border-color: var(--color-border-hover);
+    background: var(--color-surface-hover);
+  }
+
+  &:focus-visible {
+    outline: 0;
+    border-color: var(--purple-500);
+    box-shadow: 0 0 10px var(--purple-400);
+  }
+
+  /* Set by script.js when the text reaches the character limit */
+  &[aria-invalid="true"] {
+    border-color: var(--color-error);
+    box-shadow: 0 0 8px var(--color-error);
+  }
+}
+
+.limit-message {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font: 400 0.875rem / 1.3 var(--font-input);
+  letter-spacing: -0.3px;
+  color: var(--color-error);
+}
