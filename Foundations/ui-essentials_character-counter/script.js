@@ -42,6 +42,10 @@ const charCount = byId("char-count");
 const wordCount = byId("word-count");
 const sentenceCount = byId("sentence-count");
 const readingTimeText = byId("reading-time");
+const limitToggle = byId("limit-toggle");
+const limitInput = byId("limit-input");
+const limitMessage = byId("limit-message");
+const limitText = byId("limit-text");
 
 // ==========================================================================
 // Render — the DOM holds the state, so every change simply re-renders
@@ -57,6 +61,25 @@ function render() {
   wordCount.textContent = padCount(words);
   sentenceCount.textContent = padCount(countSentences(text));
   readingTimeText.textContent = readingTime(words);
+  renderLimit(text.length);
+}
+
+// Native maxlength stops typing and pasting at the limit. Lowering the limit
+// below the current text keeps the text and shows the "exceeds" message instead.
+function renderLimit(length) {
+  const limit = limitToggle.checked ? Math.floor(limitInput.valueAsNumber) : NaN;
+  const active = limit >= 1;
+  const reached = active && length >= limit;
+
+  limitInput.hidden = !limitToggle.checked;
+  if (active) textarea.maxLength = limit;
+  else textarea.removeAttribute("maxlength");
+
+  limitMessage.hidden = !reached;
+  limitText.textContent = `Limit reached! Your text ${length > limit ? "exceeds" : "has reached"} ${limit} characters.`;
+  textarea.setAttribute("aria-invalid", reached);
+  if (reached) textarea.setAttribute("aria-describedby", "limit-message");
+  else textarea.removeAttribute("aria-describedby");
 }
 
 // One listener covers typing, both checkboxes and the limit field
