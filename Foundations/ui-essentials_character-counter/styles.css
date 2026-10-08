@@ -422,6 +422,11 @@ textarea {
   padding: 0;
   list-style: none;
 
+  /* No empty list for screen readers to announce before the first letter */
+  &:empty {
+    display: none;
+  }
+
   li {
     display: grid;
     grid-column: 1 / -1;
