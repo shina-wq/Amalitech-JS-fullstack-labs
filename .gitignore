@@ -1,0 +1,25 @@
+# Design source files — licensed by Frontend Mentor, must never be published
+*.fig
+*.sketch
+*.xd
+
+# Archive leftovers
+__MACOSX/
+*.zip
+
+# Dependencies and tooling output
+node_modules/
+.cache/
+
+# Editor and OS files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and local environment
+*.log
+.env
+.env.*
