@@ -79,3 +79,44 @@ textarea {
   --color-error: var(--orange-800);
   --noise: url("assets/images/bg-noise-light.webp");
 }
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+body {
+  font: var(--text-4);
+  letter-spacing: -0.6px;
+  color: var(--color-text);
+  background: var(--noise) var(--color-bg);
+}
+
+h1 {
+  font: var(--text-1);
+  letter-spacing: -1px;
+  color: var(--color-heading);
+}
+
+h2 {
+  font: var(--text-2);
+  letter-spacing: -1px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--purple-500);
+  outline-offset: 2px;
+}
+
+/* Keep the hidden attribute working on elements that set their own display */
+[hidden] {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
