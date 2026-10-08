@@ -396,3 +396,59 @@ textarea {
   background-color: var(--orange-500);
   background-image: url("assets/images/pattern-sentence-count.svg");
 }
+
+/* ==========================================================================
+   Letter density
+   ========================================================================== */
+
+.density {
+  display: grid;
+  gap: 1.25rem;
+  /* 24px from the stat cards instead of the usual section gap */
+  margin-block-start: calc(1.5rem - var(--section-gap));
+}
+
+/* Rows share one grid (subgrid) so every bar starts and ends at the same place */
+.density-list {
+  display: grid;
+  grid-template-columns: 1rem 1fr auto;
+  gap: 0.75rem 0.875rem;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    align-items: center;
+  }
+}
+
+.density-bar {
+  block-size: 0.75rem;
+  border-radius: 999px;
+  background: var(--color-surface);
+
+  span {
+    display: block;
+    inline-size: var(--percent);
+    block-size: 100%;
+    border-radius: inherit;
+    background: var(--purple-400);
+  }
+}
+
+.density-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  padding: 0;
+  border: 0;
+  font: var(--text-3);
+  background: none;
+
+  &[aria-expanded="true"] svg {
+    rotate: 180deg;
+  }
+}
