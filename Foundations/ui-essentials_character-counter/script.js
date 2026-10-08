@@ -3,6 +3,7 @@
 // ==========================================================================
 
 const WORDS_PER_MINUTE = 200;
+const DENSITY_PREVIEW = 5;
 
 const countWords = (text) => text.match(/\S+/g)?.length ?? 0;
 
@@ -46,6 +47,10 @@ const limitToggle = byId("limit-toggle");
 const limitInput = byId("limit-input");
 const limitMessage = byId("limit-message");
 const limitText = byId("limit-text");
+const densityEmpty = byId("density-empty");
+const densityList = byId("density-list");
+const densityToggle = byId("density-toggle");
+const densityRow = byId("density-row");
 
 // ==========================================================================
 // Render — the DOM holds the state, so every change simply re-renders
@@ -62,6 +67,7 @@ function render() {
   sentenceCount.textContent = padCount(countSentences(text));
   readingTimeText.textContent = readingTime(words);
   renderLimit(text.length);
+  renderDensity(letterDensity(text));
 }
 
 // Native maxlength stops typing and pasting at the limit. Lowering the limit
@@ -82,6 +88,35 @@ function renderLimit(length) {
   else textarea.removeAttribute("aria-describedby");
 }
 
+function renderDensity(rows) {
+  const expanded = densityToggle.getAttribute("aria-expanded") === "true";
+  const visible = expanded ? rows : rows.slice(0, DENSITY_PREVIEW);
+
+  densityEmpty.hidden = rows.length > 0;
+  densityToggle.hidden = rows.length <= DENSITY_PREVIEW;
+  densityList.replaceChildren(...visible.map(createDensityRow));
+}
+
+function createDensityRow({ letter, count, percent }) {
+  const row = densityRow.content.firstElementChild.cloneNode(true);
+  row.querySelector(".density-letter").textContent = letter;
+  row.querySelector(".density-bar span").style.setProperty("--percent", `${percent}%`);
+  row.querySelector(".density-value").textContent = `${count} (${percent.toFixed(2)}%)`;
+  return row;
+}
+
+// ==========================================================================
+// Events
+// ==========================================================================
+
 // One listener covers typing, both checkboxes and the limit field
 document.querySelector(".analyzer").addEventListener("input", render);
+
+densityToggle.addEventListener("click", () => {
+  const expanded = densityToggle.getAttribute("aria-expanded") !== "true";
+  densityToggle.setAttribute("aria-expanded", expanded);
+  densityToggle.firstElementChild.textContent = expanded ? "See less" : "See more";
+  render();
+});
+
 render();
