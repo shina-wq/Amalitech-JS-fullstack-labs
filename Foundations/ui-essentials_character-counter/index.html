@@ -12,8 +12,9 @@
 
     <!-- Apply the saved or system theme before first paint, so the page never flashes the wrong theme -->
     <script>
+      let theme;
       try {
-        var theme = localStorage.getItem("character-counter:theme");
+        theme = localStorage.getItem("character-counter:theme");
       } catch {}
       document.documentElement.dataset.theme =
         theme || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
@@ -34,7 +35,7 @@
       <img class="logo logo--dark" src="assets/images/logo-dark-theme.svg" alt="Character Counter" width="246" height="40" />
       <img class="logo logo--light" src="assets/images/logo-light-theme.svg" alt="Character Counter" width="246" height="40" />
 
-      <!-- script.js sets the label to the action, e.g. "Switch to light theme" -->
+      <!-- Theme toggle button -->
       <button class="theme-toggle" type="button" aria-label="Toggle theme">
         <!-- Inline so the icons inherit the theme colour via currentColor -->
         <svg class="icon-sun" viewBox="0 0 20 20" width="22" height="22" aria-hidden="true">
@@ -55,12 +56,12 @@
     <main>
       <h1>Analyze your text in real-time.</h1>
 
-      <!-- Text input, limit message and options -->
+      <!-- Text input -->
       <div class="analyzer">
         <label class="visually-hidden" for="text-input">Text to analyze</label>
         <textarea id="text-input" placeholder="Start typing here… (or paste your text)"></textarea>
 
-        <!-- Shown by script.js when the character limit is hit -->
+        <!-- Shown when the character limit is hit -->
         <p class="limit-message" id="limit-message" role="alert" hidden>
           <svg viewBox="5 5 13.56 13.56" width="14" height="14" aria-hidden="true">
             <path fill="currentColor" d="M11.78 5.88a5.9 5.9 0 1 0-.01 11.8 5.9 5.9 0 0 0 .01-11.8m0-.88a6.8 6.8 0 0 1 6.78 6.78A6.78 6.78 0 1 1 11.78 5m-.98 9.4h.32v-3.28h-.32a.3.3 0 0 1-.33-.32v-.22c0-.17.13-.33.33-.33h1.3c.17 0 .34.16.34.33v3.83h.33c.16 0 .32.16.32.32v.22c0 .2-.16.33-.32.33H10.8a.32.32 0 0 1-.33-.33v-.22c0-.16.13-.32.33-.32m.98-6.56a.9.9 0 0 1 .88.88c0 .5-.41.87-.88.87a.86.86 0 0 1-.87-.87c0-.47.38-.88.87-.88" />
@@ -68,6 +69,7 @@
           <span id="limit-text"></span>
         </p>
 
+        <!-- checkbox options -->
         <div class="options">
           <label class="checkbox"><input type="checkbox" id="exclude-spaces" /> Exclude Spaces</label>
           <label class="checkbox"><input type="checkbox" id="limit-toggle" /> Set Character Limit</label>
@@ -76,7 +78,7 @@
         </div>
       </div>
 
-      <!-- Label (dt) comes first for screen readers; CSS shows the value above it -->
+      <!-- stat cards -->
       <dl class="stats">
         <div class="stat-card stat-card--characters">
           <dt id="char-label">Total Characters</dt>
@@ -92,6 +94,7 @@
         </div>
       </dl>
 
+      <!-- Letter density section -->
       <section class="density">
         <h2>Letter Density</h2>
         <p id="density-empty">No characters found. Start typing to see letter density.</p>
@@ -105,7 +108,7 @@
       </section>
     </main>
 
-    <!-- One density row, cloned by script.js; the bar is decorative because the text carries the value -->
+    <!-- Template for density rows -->
     <template id="density-row">
       <li>
         <span class="density-letter"></span>
