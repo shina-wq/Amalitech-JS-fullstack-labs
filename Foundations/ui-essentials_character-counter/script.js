@@ -85,7 +85,9 @@ function renderLimit(length) {
   else textarea.removeAttribute("maxlength");
 
   limitMessage.hidden = !reached;
-  limitText.textContent = `Limit reached! Your text ${length > limit ? "exceeds" : "has reached"} ${limit} characters.`;
+  // Write only on change: re-setting the same text in a role="alert" can make screen readers repeat it
+  const message = reached ? `Limit reached! Your text ${length > limit ? "exceeds" : "has reached"} ${limit} characters.` : "";
+  if (limitText.textContent !== message) limitText.textContent = message;
   textarea.setAttribute("aria-invalid", reached);
   if (reached) textarea.setAttribute("aria-describedby", "limit-message");
   else textarea.removeAttribute("aria-describedby");
