@@ -13,8 +13,8 @@ const countSentences = (text) => text.split(/[.!?]+/).filter((part) => part.trim
 const padCount = (count) => String(count).padStart(2, "0");
 
 function readingTime(words) {
-  const minutes = Math.round(words / WORDS_PER_MINUTE);
   if (!words) return "0 minute";
+  const minutes = Math.round(words / WORDS_PER_MINUTE);
   if (!minutes) return "<1 minute";
   return `${minutes} minute${minutes > 1 ? "s" : ""}`;
 }
