@@ -84,6 +84,69 @@
           </svg>
         </button>
       </header>
+
+      <main id="main" class="main">
+        <h1 class="hero-title">Analyze your text in real-time.</h1>
+
+        <!-- Analyzer: text input, limit message and options -->
+        <section class="analyzer" aria-label="Text analyzer">
+          <label class="visually-hidden" for="text-input">Text to analyze</label>
+          <textarea
+            class="analyzer__textarea"
+            id="text-input"
+            name="text"
+            rows="7"
+            placeholder="Start typing here… (or paste your text)"
+          ></textarea>
+
+          <!-- Shown by script.js when the limit is hit; linked to the textarea (aria-describedby) only while visible -->
+          <p class="limit-message" id="limit-message" role="alert" hidden>
+            <svg class="limit-message__icon" viewBox="5 5 13.56 13.56" width="14" height="14" aria-hidden="true">
+              <path fill="currentColor" d="M11.78 5.88a5.9 5.9 0 1 0-.01 11.8 5.9 5.9 0 0 0 .01-11.8m0-.88a6.8 6.8 0 0 1 6.78 6.78A6.78 6.78 0 1 1 11.78 5m-.98 9.4h.32v-3.28h-.32a.3.3 0 0 1-.33-.32v-.22c0-.17.13-.33.33-.33h1.3c.17 0 .34.16.34.33v3.83h.33c.16 0 .32.16.32.32v.22c0 .2-.16.33-.32.33H10.8a.32.32 0 0 1-.33-.33v-.22c0-.16.13-.32.33-.32m.98-6.56a.9.9 0 0 1 .88.88c0 .5-.41.87-.88.87a.86.86 0 0 1-.87-.87c0-.47.38-.88.87-.88" />
+            </svg>
+            <span class="limit-message__text">Limit reached! Your text exceeds 300 characters.</span>
+          </p>
+
+          <div class="analyzer__options">
+            <fieldset class="options">
+              <legend class="visually-hidden">Analysis options</legend>
+
+              <label class="checkbox">
+                <input class="checkbox__input" type="checkbox" id="exclude-spaces" name="exclude-spaces" />
+                Exclude Spaces
+              </label>
+
+              <div class="limit-option">
+                <label class="checkbox">
+                  <input
+                    class="checkbox__input"
+                    type="checkbox"
+                    id="limit-toggle"
+                    name="limit-enabled"
+                    aria-controls="limit-input"
+                  />
+                  Set Character Limit
+                </label>
+                <!-- Revealed when "Set Character Limit" is checked -->
+                <input
+                  class="limit-option__input"
+                  type="number"
+                  id="limit-input"
+                  name="limit"
+                  value="300"
+                  min="1"
+                  step="1"
+                  inputmode="numeric"
+                  aria-label="Character limit"
+                  hidden
+                />
+              </div>
+            </fieldset>
+
+            <p class="reading-time">Approx. reading time: <span id="reading-time">0 minute</span></p>
+          </div>
+        </section>
+      </main>
     </div>
   </body>
 </html>
