@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Character Counter — Analyze your text in real-time</title>
+    <meta
+      name="description"
+      content="Count characters, words and sentences, estimate reading time and see letter density as you type."
+    />
+
+    <!-- Theme: tell the browser both schemes are supported and tint mobile browser UI -->
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#12131a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+
+    <!-- Icons -->
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+
+    <!-- Apply the saved (or system) theme before first paint to avoid a flash of the wrong theme -->
+    <script>
+      (() => {
+        let theme;
+        try {
+          theme = localStorage.getItem("character-counter:theme");
+        } catch {
+          // Storage can be unavailable (private mode, blocked cookies) — fall back to the system preference
+        }
+        if (theme !== "light" && theme !== "dark") {
+          theme = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+
+    <!-- Fonts: DM Sans (interface) and Open Sans (textarea), weights limited to the style guide presets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Open+Sans&display=swap"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+  </body>
+</html>
