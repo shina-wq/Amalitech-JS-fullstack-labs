@@ -250,6 +250,12 @@ textarea {
   &[aria-invalid="true"] {
     border-color: var(--color-error);
     box-shadow: 0 0 8px var(--color-error);
+
+    /* The error replaces the focus border, so add a ring to keep focus visible */
+    &:focus-visible {
+      outline: 2px solid var(--color-error);
+      outline-offset: 2px;
+    }
   }
 }
 
