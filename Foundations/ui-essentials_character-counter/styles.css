@@ -332,3 +332,67 @@ textarea {
     appearance: none;
   }
 }
+
+/* ==========================================================================
+   Stat cards
+   ========================================================================== */
+
+.stats {
+  display: grid;
+  gap: 1rem;
+
+  @media (width >= 48em) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.stat-card {
+  display: flex;
+  /* The label (dt) comes first in the markup; show the value (dd) on top */
+  flex-direction: column-reverse;
+  justify-content: center;
+  gap: 0.5rem;
+  block-size: 8.125rem;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  color: var(--neutral-900);
+  /* Decorative pattern, partly cropped by the card's right edge as in the design */
+  background-position: right -3.125rem top -0.625rem;
+  background-size: 9.375rem;
+  background-repeat: no-repeat;
+
+  dt {
+    font: var(--text-3);
+  }
+
+  dd {
+    font: var(--text-1);
+    letter-spacing: -1px;
+  }
+
+  @media (width >= 48em) {
+    block-size: 9.375rem;
+    padding: 1rem 0.75rem;
+    background-position: right -4.375rem top;
+  }
+
+  @media (width >= 64em) {
+    padding-inline: 1rem;
+    background-position: right -1.875rem top;
+  }
+}
+
+.stat-card--characters {
+  background-color: var(--purple-400);
+  background-image: url("assets/images/pattern-character-count.svg");
+}
+
+.stat-card--words {
+  background-color: var(--yellow-500);
+  background-image: url("assets/images/pattern-word-count.svg");
+}
+
+.stat-card--sentences {
+  background-color: var(--orange-500);
+  background-image: url("assets/images/pattern-sentence-count.svg");
+}
