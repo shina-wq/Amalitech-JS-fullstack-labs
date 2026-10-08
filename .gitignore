@@ -3,6 +3,9 @@
 *.sketch
 *.xd
 
+# Local working notes — kept on disk, never pushed (applies to every lab)
+PLAN.md
+
 # Archive leftovers
 __MACOSX/
 *.zip
