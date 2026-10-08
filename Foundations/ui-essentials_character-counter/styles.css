@@ -169,8 +169,11 @@ main {
 }
 
 .logo {
+  min-inline-size: 0; /* may shrink on very narrow screens or large text, keeping its proportions */
   inline-size: auto;
   block-size: 1.875rem;
+  object-fit: contain;
+  object-position: left;
 
   @media (width >= 48em) {
     block-size: 2.5rem;
@@ -178,6 +181,7 @@ main {
 }
 
 .theme-toggle {
+  flex: none;
   display: grid;
   place-items: center;
   inline-size: 2rem;
