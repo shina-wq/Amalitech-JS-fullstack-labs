@@ -146,6 +146,27 @@
             <p class="reading-time">Approx. reading time: <span id="reading-time">0 minute</span></p>
           </div>
         </section>
+
+        <!-- Statistics: the label comes first for screen readers; CSS places the value above it -->
+        <section class="stats" aria-labelledby="stats-heading">
+          <h2 class="visually-hidden" id="stats-heading">Text statistics</h2>
+          <dl class="stats__list">
+            <div class="stat-card stat-card--characters">
+              <dt class="stat-card__label">
+                Total Characters<span class="stat-card__suffix" id="char-count-suffix" hidden> (no space)</span>
+              </dt>
+              <dd class="stat-card__value" id="char-count">00</dd>
+            </div>
+            <div class="stat-card stat-card--words">
+              <dt class="stat-card__label">Word Count</dt>
+              <dd class="stat-card__value" id="word-count">00</dd>
+            </div>
+            <div class="stat-card stat-card--sentences">
+              <dt class="stat-card__label">Sentence Count</dt>
+              <dd class="stat-card__value" id="sentence-count">00</dd>
+            </div>
+          </dl>
+        </section>
       </main>
     </div>
   </body>
