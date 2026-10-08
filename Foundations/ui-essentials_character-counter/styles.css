@@ -424,6 +424,10 @@ textarea {
   }
 }
 
+.density-value {
+  justify-self: end;
+}
+
 .density-bar {
   block-size: 0.75rem;
   border-radius: 999px;
