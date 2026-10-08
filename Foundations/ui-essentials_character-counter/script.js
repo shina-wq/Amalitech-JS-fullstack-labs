@@ -1,7 +1,4 @@
-// ==========================================================================
-// Text analysis (pure functions)
-// ==========================================================================
-
+// Text analysis
 const WORDS_PER_MINUTE = 200;
 const DENSITY_PREVIEW = 5;
 
@@ -30,9 +27,7 @@ function letterDensity(text) {
     .sort((a, b) => b.count - a.count || a.letter.localeCompare(b.letter));
 }
 
-// ==========================================================================
 // DOM
-// ==========================================================================
 
 const byId = (id) => document.getElementById(id);
 const THEME_KEY = "character-counter:theme"; // also read by the inline script in <head>
@@ -55,9 +50,7 @@ const densityList = byId("density-list");
 const densityToggle = byId("density-toggle");
 const densityRow = byId("density-row");
 
-// ==========================================================================
 // Render — the DOM holds the state, so every change simply re-renders
-// ==========================================================================
 
 function render() {
   const text = textarea.value;
@@ -110,9 +103,7 @@ function createDensityRow({ letter, count, percent }) {
   return row;
 }
 
-// ==========================================================================
 // Events
-// ==========================================================================
 
 // One listener covers typing, both checkboxes and the limit field
 document.querySelector(".analyzer").addEventListener("input", render);
