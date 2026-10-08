@@ -22,3 +22,60 @@ textarea {
   font: inherit;
   color: inherit;
 }
+
+/* ==========================================================================
+   Tokens
+   ========================================================================== */
+
+:root {
+  /* Palette (style guide) */
+  --neutral-900: #12131a;
+  --neutral-800: #21222c;
+  --neutral-700: #2a2b37;
+  --neutral-600: #404254;
+  --neutral-200: #e4e4ef;
+  --neutral-100: #f2f2f7;
+  --neutral-0: #ffffff;
+  --purple-400: #d3a0fa;
+  --purple-500: #c27cf8;
+  --yellow-500: #ff9f00;
+  --orange-500: #fe8159;
+  --orange-800: #da3701;
+
+  /* Type presets (style guide); preset 1 scales from 40px at 375px to 64px at 768px */
+  --font-body: "DM Sans", sans-serif;
+  --font-input: "Open Sans", sans-serif;
+  --text-1: 700 clamp(2.5rem, 1.07rem + 6.11vw, 4rem) / 1 var(--font-body);
+  --text-2: 600 1.5rem / 1.3 var(--font-body);
+  --text-3: 400 1.25rem / 1.4 var(--font-body);
+  --text-4: 400 1rem / 1.3 var(--font-body);
+
+  /* Dark theme (default) */
+  color-scheme: dark;
+  --color-bg: var(--neutral-900);
+  --color-text: var(--neutral-200);
+  --color-heading: var(--neutral-100);
+  --color-surface: var(--neutral-800);
+  --color-surface-hover: var(--neutral-700);
+  --color-border: var(--neutral-700);
+  --color-border-hover: var(--neutral-600);
+  --color-input-text: var(--neutral-200);
+  --color-toggle: var(--neutral-700);
+  --color-error: var(--orange-500);
+  --noise: url("assets/images/bg-noise-dark.webp");
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --color-bg: var(--neutral-0);
+  --color-text: var(--neutral-900);
+  --color-heading: var(--neutral-900);
+  --color-surface: var(--neutral-100);
+  --color-surface-hover: var(--neutral-200);
+  --color-border: var(--neutral-200);
+  --color-border-hover: var(--neutral-200);
+  --color-input-text: var(--neutral-700);
+  --color-toggle: var(--neutral-100);
+  --color-error: var(--orange-800);
+  --noise: url("assets/images/bg-noise-light.webp");
+}
