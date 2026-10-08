@@ -28,3 +28,37 @@ function letterDensity(text) {
     .map(([letter, count]) => ({ letter, count, percent: (count / letters.length) * 100 }))
     .sort((a, b) => b.count - a.count || a.letter.localeCompare(b.letter));
 }
+
+// ==========================================================================
+// DOM
+// ==========================================================================
+
+const byId = (id) => document.getElementById(id);
+
+const textarea = byId("text-input");
+const excludeSpaces = byId("exclude-spaces");
+const charLabel = byId("char-label");
+const charCount = byId("char-count");
+const wordCount = byId("word-count");
+const sentenceCount = byId("sentence-count");
+const readingTimeText = byId("reading-time");
+
+// ==========================================================================
+// Render — the DOM holds the state, so every change simply re-renders
+// ==========================================================================
+
+function render() {
+  const text = textarea.value;
+  const words = countWords(text);
+  const characters = excludeSpaces.checked ? text.replace(/\s/g, "") : text;
+
+  charLabel.textContent = excludeSpaces.checked ? "Total Characters (no space)" : "Total Characters";
+  charCount.textContent = padCount(characters.length);
+  wordCount.textContent = padCount(words);
+  sentenceCount.textContent = padCount(countSentences(text));
+  readingTimeText.textContent = readingTime(words);
+}
+
+// One listener covers typing, both checkboxes and the limit field
+document.querySelector(".analyzer").addEventListener("input", render);
+render();
