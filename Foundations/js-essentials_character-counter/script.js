@@ -1,6 +1,7 @@
 // Text analysis
 const WORDS_PER_MINUTE = 200;
 const DENSITY_PREVIEW = 5;
+const LIMIT_WARNING_RATIO = 0.9; // heads-up once 90% of the limit is used
 
 const countWords = (text) => text.match(/\S+/g)?.length ?? 0;
 
@@ -72,17 +73,23 @@ function renderLimit(length) {
   const limit = limitToggle.checked ? Math.floor(limitInput.valueAsNumber) : NaN;
   const active = limit >= 1;
   const reached = active && length >= limit;
+  const approaching = active && !reached && length >= limit * LIMIT_WARNING_RATIO;
 
   limitInput.hidden = !limitToggle.checked;
   if (active) textarea.maxLength = limit;
   else textarea.removeAttribute("maxlength");
 
-  limitMessage.hidden = !reached;
+  // Fixed wording (no live count) so the alert is announced once, not on every keystroke
+  let message = "";
+  if (reached) message = `Limit reached! Your text ${length > limit ? "exceeds" : "has reached"} ${limit} characters.`;
+  else if (approaching) message = `Almost there! You're close to the ${limit}-character limit.`;
+
+  limitMessage.hidden = !message;
+  limitMessage.classList.toggle("limit-message--warning", approaching);
   // Write only on change: re-setting the same text in a role="alert" can make screen readers repeat it
-  const message = reached ? `Limit reached! Your text ${length > limit ? "exceeds" : "has reached"} ${limit} characters.` : "";
   if (limitText.textContent !== message) limitText.textContent = message;
   textarea.setAttribute("aria-invalid", reached);
-  if (reached) textarea.setAttribute("aria-describedby", "limit-message");
+  if (message) textarea.setAttribute("aria-describedby", "limit-message");
   else textarea.removeAttribute("aria-describedby");
 }
 

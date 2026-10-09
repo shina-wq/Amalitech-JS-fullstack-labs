@@ -6,6 +6,9 @@
 # Local working notes — kept on disk, never pushed (applies to every lab)
 PLAN.md
 
+# Local preview screenshots and test pages
+.preview/
+
 # Archive leftovers
 __MACOSX/
 *.zip

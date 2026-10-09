@@ -1,12 +1,12 @@
 # Character Counter
 
-A real-time text analyzer built as the lab project for the UI Essentials course in the Frontend specialization.
+A real-time text analyzer built as the lab project for the JavaScript Essentials course in the Frontend specialization. It adds the interactivity to the UI built in the UI Essentials lab.
 
 ## Features
 
 - Live character, word and sentence counts
 - Option to exclude spaces from the character count
-- Optional character limit that blocks extra input and shows a warning
+- Optional character limit: a heads-up at 90%, a warning at the limit, and extra input is blocked
 - Approximate reading time (200 words per minute)
 - Letter density for the top five letters, with "See more" for the rest
 - Light and dark themes that follow the system setting and remember your choice
@@ -17,6 +17,12 @@ A real-time text analyzer built as the lab project for the UI Essentials course 
 - Semantic HTML
 - Modern CSS: custom properties, nesting, grid, subgrid and `clamp()`
 - Vanilla JavaScript with no build step or dependencies
+
+## How it works
+
+- **Events:** one `input` listener on the analyzer handles typing, both checkboxes and the limit field
+- **String methods:** `match`, `split`, `replace` and `length` count characters, words and sentences
+- **DOM updates:** every change re-renders the counts, the limit message and the letter-density rows (cloned from a `<template>`)
 
 ## Getting started
 
