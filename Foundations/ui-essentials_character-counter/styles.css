@@ -220,7 +220,7 @@ textarea {
   letter-spacing: 0;
   color: var(--color-input-text);
   background: var(--color-surface);
-  resize: vertical;
+  resize: none;
 
   &::placeholder {
     color: inherit;
